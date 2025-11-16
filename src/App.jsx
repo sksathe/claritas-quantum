@@ -1,13 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import { HeroGeometric } from "./components/ui/shape-landing-hero";
 
 function App() {
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : false;
+  });
+
+  useEffect(() => {
+    // Initialize theme on mount and update when isDark changes
+    const theme = isDark ? "dark" : "light";
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+  };
+
   return (
     <div className="page">
-      {/* Nav */}
+      {/* Nav - positioned over hero */}
       <header className="nav">
         <div className="nav-left">
-          <div className="logo-circle">Q</div>
+          <img 
+            src="/logo.png" 
+            alt="ClaritasQuantum Logo" 
+            className="logo-image"
+            onLoad={(e) => {
+              // Hide text logo when image loads successfully
+              const textLogo = e.target.nextElementSibling?.nextElementSibling;
+              if (textLogo) {
+                textLogo.style.display = 'none';
+              }
+            }}
+            onError={(e) => {
+              // Try alternative formats if logo.png doesn't exist
+              const formats = ['/logo.svg', '/logo.jpg', '/logo.jpeg'];
+              const currentSrc = e.target.src;
+              const currentFormat = currentSrc.split('.').pop();
+              const nextFormatIndex = formats.findIndex(f => f.includes(currentFormat)) + 1;
+              
+              if (nextFormatIndex < formats.length) {
+                e.target.src = formats[nextFormatIndex];
+              } else {
+                // Fallback to text logo if no image formats work
+                e.target.style.display = 'none';
+                const fallback = e.target.nextElementSibling;
+                if (fallback) fallback.style.display = 'flex';
+              }
+            }}
+          />
+          <div className="logo-circle" style={{ display: 'none' }}>Q</div>
           <div className="logo-text">
             <span className="logo-name">ClaritasQuantum</span>
             <span className="logo-tagline">Securing Tomorrow, Today</span>
@@ -26,43 +71,51 @@ function App() {
         </div>
       </header>
 
-      {/* Hero */}
-      <main className="hero">
-        <div className="hero-text">
-          <h1>
-            Know your <span className="highlight">post-quantum risk</span> before
-            attackers do.
-          </h1>
-          <p className="hero-subtitle">
-            ClaritasQuantum helps enterprises map their internal and external
-            cryptographic assets, quantify post-quantum exposure, and build a
-            practical migration roadmap.
-          </p>
+      {/* Animated Hero Section */}
+      <div className="hero-geometric-container">
+        <HeroGeometric 
+          title1="ClaritasQuantum"
+          title2="Securing Tomorrow, Today"
+        />
+      </div>
 
-          <div className="hero-actions" id="cta">
-            <button className="primary-btn">
-              Schedule a PQ Readiness Call
-            </button>
-            <button className="ghost-btn">View Sample Report</button>
+      {/* Original Hero Section - keeping for content below */}
+      <main className="hero" style={{ marginTop: 0 }}>
+        <div className="hero-container">
+          <div className="hero-text">
+            <h1>
+              Know your <span className="highlight">post-quantum risk</span> before
+              attackers do.
+            </h1>
+            <p className="hero-subtitle">
+              We help build quantum-safe infrastructure by uncovering assets vulnerable to post-quantum threats. 
+              Our PQ Score reveals quantum exposure and highlights the key systems impacting your security posture.
+            </p>
+
+            <div className="hero-actions" id="cta">
+              <button className="primary-btn">
+                Schedule a PQ Readiness Call
+              </button>
+              <button className="ghost-btn">View Sample Report</button>
+            </div>
+
+            <div className="hero-meta">
+              <div className="meta-item">
+                <span className="meta-label">Focus</span>
+                <span className="meta-value">Post-Quantum Readiness</span>
+              </div>
+              <div className="meta-divider" />
+              <div className="meta-item">
+                <span className="meta-label">Approach</span>
+                <span className="meta-value">
+                  Vendor-neutral • NIST-standardized • Minimal impact
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="hero-meta">
-            <div className="meta-item">
-              <span className="meta-label">Focus</span>
-              <span className="meta-value">Post-Quantum Readiness</span>
-            </div>
-            <div className="meta-divider" />
-            <div className="meta-item">
-              <span className="meta-label">What we do</span>
-              <span className="meta-value">
-                External attack surface + internal crypto inventory
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right side stats card */}
-        <div className="hero-card">
+          {/* Right side stats card */}
+          <div className="hero-card">
           <h2>Example Engagement Snapshot</h2>
           <p className="hero-card-sub">
             External scan & PQ scoring for a large university environment.
@@ -98,38 +151,95 @@ function App() {
               Built on NIST & CNSA 2.0 guidance
             </span>
           </div>
+          </div>
         </div>
       </main>
 
-      {/* Features */}
-      <section className="features" id="about">
-        <h2>What ClaritasQuantum Delivers</h2>
+      {/* Mission */}
+      <section className="mission" id="about">
+        <h2>Our Mission</h2>
+        <div className="mission-grid">
+          <div className="mission-item">
+            <div className="mission-icon">🔒</div>
+            <p>
+              Help build quantum-safe infrastructure by uncovering assets vulnerable to post-quantum threats.
+            </p>
+          </div>
+          <div className="mission-item">
+            <div className="mission-icon">📊</div>
+            <p>
+              Deliver a PQ Score that reveals quantum exposure and highlights the key systems impacting their security posture.
+            </p>
+          </div>
+          <div className="mission-item">
+            <div className="mission-icon">🌐</div>
+            <p>
+              Build a unified ontology of internal and external assets that empowers next-generation cybersecurity visibility, analysis, and defense.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Do */}
+      <section className="features">
+        <h2>What We Do</h2>
         <p className="features-sub">
-          Start with a lightweight assessment. Leave with a clear, prioritized
-          plan to get quantum-ready.
+          Comprehensive post-quantum readiness solutions designed to protect your infrastructure 
+          while ensuring compliance and providing actionable security roadmaps.
         </p>
 
         <div className="features-grid">
           <div className="feature-card">
-            <h3>External Attack Surface Scan</h3>
+            <h3>Post-Quantum Readiness Scoring</h3>
             <p>
-              Enumerate public-facing assets, TLS endpoints, and exposed
-              services. Identify legacy crypto, weak cipher suites, and
-              high-impact CVEs.
+              Deliver a comprehensive PQ Score that quantifies your quantum exposure and 
+              identifies the critical systems impacting your security posture.
             </p>
           </div>
           <div className="feature-card">
-            <h3>Internal Crypto Inventory</h3>
+            <h3>Asset Mapping & Analysis</h3>
             <p>
-              Map certificates, keys, databases, and code paths across cloud and
-              on-prem to build a true cryptographic bill of materials (CBOM).
+              Map and analyze assets and cryptographic dependencies to reveal vulnerabilities 
+              and strengthen quantum-era resilience across your entire infrastructure.
             </p>
           </div>
           <div className="feature-card">
-            <h3>PQ Readiness Score & Roadmap</h3>
+            <h3>Compliance & Roadmaps</h3>
             <p>
-              Quantify post-quantum exposure using graph-based scoring and get a
-              phased migration roadmap aligned with NIST PQC and CNSA 2.0.
+              Ensure compliance with evolving post-quantum regulations while equipping you 
+              with practical, ready-to-act security roadmaps tailored to your environment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Differentiators */}
+      <section className="differentiators">
+        <h2>Our Differentiators</h2>
+        <p className="differentiators-sub">
+          What sets ClaritasQuantum apart in the post-quantum security landscape.
+        </p>
+
+        <div className="differentiators-grid">
+          <div className="differentiator-card">
+            <h3>PQ Cryptography Expertise</h3>
+            <p>
+              Deep expertise across all major NIST-standardized algorithms, ensuring 
+              you receive guidance based on the latest cryptographic standards.
+            </p>
+          </div>
+          <div className="differentiator-card">
+            <h3>Vendor-Neutral Approach</h3>
+            <p>
+              Our vendor-neutral methodology ensures optimal solution fit for your 
+              specific needs, free from product bias or vendor lock-in.
+            </p>
+          </div>
+          <div className="differentiator-card">
+            <h3>Proven Assessment Framework</h3>
+            <p>
+              Battle-tested assessment framework designed for minimal operational impact 
+              while delivering comprehensive insights into your quantum readiness.
             </p>
           </div>
         </div>
