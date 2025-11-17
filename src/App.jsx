@@ -8,6 +8,8 @@ function App() {
     return saved ? saved === "dark" : false;
   });
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   useEffect(() => {
     // Initialize theme on mount and update when isDark changes
     const theme = isDark ? "dark" : "light";
@@ -19,25 +21,61 @@ function App() {
     setIsDark(!isDark);
   };
 
+  const teamMembers = [
+    {
+      name: "Dr. Rasmus Erlemann",
+      role: "Technical Lead",
+      bio: "Dr. Rasmus Erlemann brings 15 years of experience in cybersecurity and data science, with extensive research conducted at UNCC and NTNU. His expertise drives our technical innovation and ensures our solutions meet the highest standards of post-quantum security.",
+      image: "/team/rasmus-erlemann.jpg",
+      alt: "Dr. Rasmus Erlemann"
+    },
+    {
+      name: "Dr. David Yu",
+      role: "Industry Mentor",
+      bio: "Dr. David Yu brings over 20 years of global experience in finance, investment, and valuation. His background includes leadership roles at Inception, AAVA, Bank of America Merrill Lynch, Libra Group, NYU Shanghai, and Johns Hopkins University, providing strategic guidance to our team.",
+      image: "/team/david-yu.jpg",
+      alt: "Dr. David Yu"
+    },
+    {
+      name: "Charles Morris",
+      role: "Co-Entrepreneurial Lead",
+      bio: "Charles Morris is a BS student in Computer Science at UNCC, holding CompTIA Security+ and Network+ certifications. He has experience building AI-driven platforms and has successfully completed the NSF I-Corps Regional program, bringing entrepreneurial energy to our mission.",
+      image: "/team/charles-morris.jpg",
+      alt: "Charles Morris"
+    },
+    {
+      name: "Sanjyot Sathe",
+      role: "Co-Entrepreneurial Lead",
+      bio: "Sanjyot Sathe is an MS student in Computer Science at UNCC, with expertise in cloud computing, DevOps automation, and microservice architectures. She previously served as Software Engineer II at UBS, bringing real-world industry experience to our technical development.",
+      image: "/team/sanjyot-sathe.jpg",
+      alt: "Sanjyot Sathe"
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % teamMembers.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
   return (
     <div className="page">
       {/* Nav - positioned over hero */}
       <header className="nav">
         <div className="nav-left">
           <img 
-            src="/logo.png" 
+            src="/team/logo.jpg" 
             alt="ClaritasQuantum Logo" 
             className="logo-image"
-            onLoad={(e) => {
-              // Hide text logo when image loads successfully
-              const textLogo = e.target.nextElementSibling?.nextElementSibling;
-              if (textLogo) {
-                textLogo.style.display = 'none';
-              }
-            }}
             onError={(e) => {
-              // Try alternative formats if logo.png doesn't exist
-              const formats = ['/logo.svg', '/logo.jpg', '/logo.jpeg'];
+              // Try alternative formats if logo.jpg doesn't exist
+              const formats = ['/logo.png', '/logo.svg', '/logo.jpeg'];
               const currentSrc = e.target.src;
               const currentFormat = currentSrc.split('.').pop();
               const nextFormatIndex = formats.findIndex(f => f.includes(currentFormat)) + 1;
@@ -93,9 +131,9 @@ function App() {
             </p>
 
             <div className="hero-actions" id="cta">
-              <button className="primary-btn">
+              <a href="mailto:ssathe1@charlotte.edu?subject=Schedule a PQ Readiness Call" className="primary-btn">
                 Schedule a PQ Readiness Call
-              </button>
+              </a>
               <button className="ghost-btn">View Sample Report</button>
             </div>
 
@@ -160,19 +198,54 @@ function App() {
         <h2>Our Mission</h2>
         <div className="mission-grid">
           <div className="mission-item">
-            <div className="mission-icon">🔒</div>
+            <div className="mission-icon">
+              <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="4" fill="currentColor"/>
+                <ellipse cx="20" cy="20" rx="12" ry="6" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8"/>
+                <ellipse cx="20" cy="20" rx="12" ry="6" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" transform="rotate(60 20 20)"/>
+                <ellipse cx="20" cy="20" rx="12" ry="6" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.8" transform="rotate(120 20 20)"/>
+                <circle cx="20" cy="14" r="2" fill="currentColor"/>
+                <circle cx="28" cy="23" r="2" fill="currentColor"/>
+                <circle cx="12" cy="23" r="2" fill="currentColor"/>
+              </svg>
+            </div>
             <p>
               Help build quantum-safe infrastructure by uncovering assets vulnerable to post-quantum threats.
             </p>
           </div>
           <div className="mission-item">
-            <div className="mission-icon">📊</div>
+            <div className="mission-icon">
+              <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8" y1="32" x2="32" y2="32" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <line x1="8" y1="32" x2="8" y2="8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M32 32 L28 30 M32 32 L28 34" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M8 8 L6 12 M8 8 L10 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <rect x="10" y="28" width="3" height="4" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <rect x="15" y="24" width="3" height="8" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <rect x="20" y="20" width="3" height="12" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <rect x="25" y="16" width="3" height="16" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <path d="M11 30 L15 26 L19 22 L23 18 L27 14" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M27 14 L25 16 M27 14 L25 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </div>
             <p>
               Deliver a PQ Score that reveals quantum exposure and highlights the key systems impacting their security posture.
             </p>
           </div>
           <div className="mission-item">
-            <div className="mission-icon">🌐</div>
+            <div className="mission-icon">
+              <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="12" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <ellipse cx="20" cy="20" rx="12" ry="6" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                <ellipse cx="20" cy="20" rx="12" ry="6" stroke="currentColor" strokeWidth="1.5" fill="none" transform="rotate(90 20 20)"/>
+                <path d="M8 20 A12 12 0 0 1 32 20" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                <path d="M32 20 A12 12 0 0 1 8 20" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                <circle cx="32" cy="20" r="1.5" fill="currentColor"/>
+                <circle cx="8" cy="20" r="1.5" fill="currentColor"/>
+                <path d="M32 20 L30 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M8 20 L10 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </div>
             <p>
               Build a unified ontology of internal and external assets that empowers next-generation cybersecurity visibility, analysis, and defense.
             </p>
@@ -248,94 +321,49 @@ function App() {
       {/* Who We Are */}
       <section className="who-we-are" id="who-we-are">
         <h2>Who We Are</h2>
-        <div className="team-grid">
-          <div className="team-member">
-            <div className="team-photo">
-              <img 
-                src="/team/rasmus-erlemann.jpg" 
-                alt="Dr. Rasmus Erlemann"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
-                }}
-              />
-            </div>
-            <div className="team-info">
-              <h3>Dr. Rasmus Erlemann</h3>
-              <p className="team-role">Technical Lead</p>
-              <p className="team-bio">
-                Dr. Rasmus Erlemann brings 15 years of experience in cybersecurity and data science, 
-                with extensive research conducted at UNCC and NTNU. His expertise drives our technical 
-                innovation and ensures our solutions meet the highest standards of post-quantum security.
-              </p>
-            </div>
-          </div>
-
-          <div className="team-member">
-            <div className="team-photo">
-              <img 
-                src="/team/david-yu.jpg" 
-                alt="Dr. David Yu"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
-                }}
-              />
-            </div>
-            <div className="team-info">
-              <h3>Dr. David Yu</h3>
-              <p className="team-role">Industry Mentor</p>
-              <p className="team-bio">
-                Dr. David Yu brings over 20 years of global experience in finance, investment, and valuation. 
-                His background includes leadership roles at Inception, AAVA, Bank of America Merrill Lynch, 
-                Libra Group, NYU Shanghai, and Johns Hopkins University, providing strategic guidance to our team.
-              </p>
+        <div className="team-carousel-container">
+          <button className="carousel-btn carousel-btn-prev" onClick={prevSlide} aria-label="Previous slide">
+            ‹
+          </button>
+          <div className="team-carousel">
+            <div 
+              className="team-carousel-track" 
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {teamMembers.map((member, index) => (
+                <div key={index} className="team-member">
+                  <div className="team-photo">
+                    <img 
+                      src={member.image} 
+                      alt={member.alt}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
+                      }}
+                    />
+                  </div>
+                  <div className="team-info">
+                    <h3>{member.name}</h3>
+                    <p className="team-role">{member.role}</p>
+                    <p className="team-bio">{member.bio}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-
-          <div className="team-member">
-            <div className="team-photo">
-              <img 
-                src="/team/charles-morris.jpg" 
-                alt="Charles Morris"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
-                }}
-              />
-            </div>
-            <div className="team-info">
-              <h3>Charles Morris</h3>
-              <p className="team-role">Co-Entrepreneurial Lead</p>
-              <p className="team-bio">
-                Charles Morris is a BS student in Computer Science at UNCC, holding CompTIA Security+ and 
-                Network+ certifications. He has experience building AI-driven platforms and has successfully 
-                completed the NSF I-Corps Regional program, bringing entrepreneurial energy to our mission.
-              </p>
-            </div>
-          </div>
-
-          <div className="team-member">
-            <div className="team-photo">
-              <img 
-                src="/team/sanjyot-sathe.jpg" 
-                alt="Sanjyot Sathe"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
-                }}
-              />
-            </div>
-            <div className="team-info">
-              <h3>Sanjyot Sathe</h3>
-              <p className="team-role">Co-Entrepreneurial Lead</p>
-              <p className="team-bio">
-                Sanjyot Sathe is an MS student in Computer Science at UNCC, with expertise in cloud computing, 
-                DevOps automation, and microservice architectures. She previously served as Software Engineer II 
-                at UBS, bringing real-world industry experience to our technical development.
-              </p>
-            </div>
-          </div>
+          <button className="carousel-btn carousel-btn-next" onClick={nextSlide} aria-label="Next slide">
+            ›
+          </button>
+        </div>
+        <div className="carousel-dots">
+          {teamMembers.map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -350,7 +378,7 @@ function App() {
             </p>
           </div>
           <div className="footer-actions">
-            <a href="mailto:contact@claritasquantum.com" className="primary-btn">
+            <a href="mailto:ssathe1@charlotte.edu" className="primary-btn">
               Email Us
             </a>
             <a
