@@ -70,12 +70,12 @@ function App() {
       <header className="nav">
         <div className="nav-left">
           <img 
-            src="/team/logo.jpg" 
+            src="/team/logo.png" 
             alt="ClaritasQuantum Logo" 
             className="logo-image"
             onError={(e) => {
-              // Try alternative formats if logo.jpg doesn't exist
-              const formats = ['/logo.png', '/logo.svg', '/logo.jpeg'];
+              // Try alternative formats if logo.png doesn't exist
+              const formats = ['/team/logo.jpg', '/logo.png', '/logo.svg', '/logo.jpeg'];
               const currentSrc = e.target.src;
               const currentFormat = currentSrc.split('.').pop();
               const nextFormatIndex = formats.findIndex(f => f.includes(currentFormat)) + 1;
