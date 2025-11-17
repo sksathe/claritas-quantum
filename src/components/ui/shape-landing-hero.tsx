@@ -319,17 +319,26 @@ function HeroGeometric({
                             <br />
 
                             <span
-
+                            
                                 className={cn(
-
-                                    "block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 tracking-wide text-center"
-
+                            
+                                    "block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-wide text-center relative"
+                            
                                 )}
-
+                            
+                                style={{
+                                    background: 'linear-gradient(to right, #c7d2fe, #ffffff, #fecdd3)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    backgroundClip: 'text',
+                                    filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 20px rgba(199, 210, 254, 0.5))',
+                                    lineHeight: '1.2'
+                                }}
+                            
                             >
-
+                            
                                 {title2}
-
+                            
                             </span>
 
                         </h1>

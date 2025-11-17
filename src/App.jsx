@@ -59,14 +59,14 @@ function App() {
           </div>
         </div>
         <div className="nav-right">
-          <a href="#contact" className="nav-link">
-            Contact
-          </a>
           <a href="#about" className="nav-link">
             About
           </a>
-          <a href="#cta" className="nav-button">
-            Book a Call
+          <a href="#who-we-are" className="nav-link">
+            Who We Are
+          </a>
+          <a href="#contact" className="nav-link">
+            Contact
           </a>
         </div>
       </header>
@@ -241,6 +241,100 @@ function App() {
               Battle-tested assessment framework designed for minimal operational impact 
               while delivering comprehensive insights into your quantum readiness.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Who We Are */}
+      <section className="who-we-are" id="who-we-are">
+        <h2>Who We Are</h2>
+        <div className="team-grid">
+          <div className="team-member">
+            <div className="team-photo">
+              <img 
+                src="/team/rasmus-erlemann.jpg" 
+                alt="Dr. Rasmus Erlemann"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
+                }}
+              />
+            </div>
+            <div className="team-info">
+              <h3>Dr. Rasmus Erlemann</h3>
+              <p className="team-role">Technical Lead</p>
+              <p className="team-bio">
+                Dr. Rasmus Erlemann brings 15 years of experience in cybersecurity and data science, 
+                with extensive research conducted at UNCC and NTNU. His expertise drives our technical 
+                innovation and ensures our solutions meet the highest standards of post-quantum security.
+              </p>
+            </div>
+          </div>
+
+          <div className="team-member">
+            <div className="team-photo">
+              <img 
+                src="/team/david-yu.jpg" 
+                alt="Dr. David Yu"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
+                }}
+              />
+            </div>
+            <div className="team-info">
+              <h3>Dr. David Yu</h3>
+              <p className="team-role">Industry Mentor</p>
+              <p className="team-bio">
+                Dr. David Yu brings over 20 years of global experience in finance, investment, and valuation. 
+                His background includes leadership roles at Inception, AAVA, Bank of America Merrill Lynch, 
+                Libra Group, NYU Shanghai, and Johns Hopkins University, providing strategic guidance to our team.
+              </p>
+            </div>
+          </div>
+
+          <div className="team-member">
+            <div className="team-photo">
+              <img 
+                src="/team/charles-morris.jpg" 
+                alt="Charles Morris"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
+                }}
+              />
+            </div>
+            <div className="team-info">
+              <h3>Charles Morris</h3>
+              <p className="team-role">Co-Entrepreneurial Lead</p>
+              <p className="team-bio">
+                Charles Morris is a BS student in Computer Science at UNCC, holding CompTIA Security+ and 
+                Network+ certifications. He has experience building AI-driven platforms and has successfully 
+                completed the NSF I-Corps Regional program, bringing entrepreneurial energy to our mission.
+              </p>
+            </div>
+          </div>
+
+          <div className="team-member">
+            <div className="team-photo">
+              <img 
+                src="/team/sanjyot-sathe.jpg" 
+                alt="Sanjyot Sathe"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
+                }}
+              />
+            </div>
+            <div className="team-info">
+              <h3>Sanjyot Sathe</h3>
+              <p className="team-role">Co-Entrepreneurial Lead</p>
+              <p className="team-bio">
+                Sanjyot Sathe is an MS student in Computer Science at UNCC, with expertise in cloud computing, 
+                DevOps automation, and microservice architectures. She previously served as Software Engineer II 
+                at UBS, bringing real-world industry experience to our technical development.
+              </p>
+            </div>
           </div>
         </div>
       </section>
