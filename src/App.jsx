@@ -8,8 +8,6 @@ function App() {
     return saved ? saved === "dark" : false;
   });
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   useEffect(() => {
     // Initialize theme on mount and update when isDark changes
     const theme = isDark ? "dark" : "light";
@@ -38,18 +36,6 @@ function App() {
       alt: "Sanjyot Sathe"
     }
   ];
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % teamMembers.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
-  };
 
   return (
     <div className="page">
@@ -308,46 +294,23 @@ function App() {
       {/* Who We Are */}
       <section className="who-we-are" id="who-we-are">
         <h2>Who We Are</h2>
-        <div className="team-carousel-container">
-          <button className="carousel-btn carousel-btn-prev" onClick={prevSlide} aria-label="Previous slide">
-            <span>‹</span>
-          </button>
-          <div className="team-carousel">
-            <div 
-              className="team-carousel-track" 
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
-              {teamMembers.map((member, index) => (
-                <div key={index} className="team-member">
-                  <div className="team-photo">
-                    <img 
-                      src={member.image} 
-                      alt={member.alt}
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
-                      }}
-                    />
-                  </div>
-                  <div className="team-info">
-                    <h3>{member.name}</h3>
-                  </div>
-                </div>
-              ))}
+        <div className="team-grid">
+          {teamMembers.map((member, index) => (
+            <div key={index} className="team-member">
+              <div className="team-photo">
+                <img 
+                  src={member.image} 
+                  alt={member.alt}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.parentElement.style.background = 'linear-gradient(135deg, #a5b4fc 0%, rgba(255, 255, 255, 0.9) 50%, #fda4af 100%)';
+                  }}
+                />
+              </div>
+              <div className="team-info">
+                <h3>{member.name}</h3>
+              </div>
             </div>
-          </div>
-          <button className="carousel-btn carousel-btn-next" onClick={nextSlide} aria-label="Next slide">
-            <span>›</span>
-          </button>
-        </div>
-        <div className="carousel-dots">
-          {teamMembers.map((_, index) => (
-            <button
-              key={index}
-              className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
           ))}
         </div>
       </section>
