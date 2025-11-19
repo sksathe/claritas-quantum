@@ -24,29 +24,16 @@ function App() {
   const teamMembers = [
     {
       name: "Dr. Rasmus Erlemann",
-      role: "Technical Lead",
-      bio: "Dr. Rasmus Erlemann brings 15 years of experience in cybersecurity and data science, with extensive research conducted at UNCC and NTNU. His expertise drives our technical innovation and ensures our solutions meet the highest standards of post-quantum security.",
       image: "/team/rasmus-erlemann.jpg",
       alt: "Dr. Rasmus Erlemann"
     },
     {
-      name: "Dr. David Yu",
-      role: "Industry Mentor",
-      bio: "Dr. David Yu brings over 20 years of global experience in finance, investment, and valuation. His background includes leadership roles at Inception, AAVA, Bank of America Merrill Lynch, Libra Group, NYU Shanghai, and Johns Hopkins University, providing strategic guidance to our team.",
-      image: "/team/david-yu.jpg",
-      alt: "Dr. David Yu"
-    },
-    {
       name: "Charles Morris",
-      role: "Co-Entrepreneurial Lead",
-      bio: "Charles Morris is a BS student in Computer Science at UNCC, holding CompTIA Security+ and Network+ certifications. He has experience building AI-driven platforms and has successfully completed the NSF I-Corps Regional program, bringing entrepreneurial energy to our mission.",
       image: "/team/charles-morris.jpg",
       alt: "Charles Morris"
     },
     {
       name: "Sanjyot Sathe",
-      role: "Co-Entrepreneurial Lead",
-      bio: "Sanjyot Sathe is an MS student in Computer Science at UNCC, with expertise in cloud computing, DevOps automation, and microservice architectures. She previously served as Software Engineer II at UBS, bringing real-world industry experience to our technical development.",
       image: "/team/sanjyot-sathe.jpg",
       alt: "Sanjyot Sathe"
     }
@@ -323,7 +310,7 @@ function App() {
         <h2>Who We Are</h2>
         <div className="team-carousel-container">
           <button className="carousel-btn carousel-btn-prev" onClick={prevSlide} aria-label="Previous slide">
-            ‹
+            <span>‹</span>
           </button>
           <div className="team-carousel">
             <div 
@@ -344,15 +331,13 @@ function App() {
                   </div>
                   <div className="team-info">
                     <h3>{member.name}</h3>
-                    <p className="team-role">{member.role}</p>
-                    <p className="team-bio">{member.bio}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
           <button className="carousel-btn carousel-btn-next" onClick={nextSlide} aria-label="Next slide">
-            ›
+            <span>›</span>
           </button>
         </div>
         <div className="carousel-dots">
@@ -392,9 +377,15 @@ function App() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} ClaritasQuantum</span>
-          <span className="dot">•</span>
-          <span>Securing Tomorrow, Today</span>
+          <div className="footer-left">
+            <span>© {new Date().getFullYear()} ClaritasQuantum</span>
+            <span className="dot">•</span>
+            <span>Securing Tomorrow, Today</span>
+          </div>
+          <div className="footer-nsf">
+            <img src="/logo/nsf_logo.jpg" alt="NSF Logo" className="nsf-logo" />
+            <span>Funded by NSF I-Corps</span>
+          </div>
         </div>
       </footer>
     </div>
